@@ -55,6 +55,7 @@ static int gpio_poweroff_probe(struct platform_device *pdev)
 	bool input = false;
 	enum gpiod_flags flags;
 	bool force = false;
+	bool export = false;
 
 	/* If a pm_power_off function has already been added, leave it alone */
 	force = of_property_read_bool(pdev->dev.of_node, "force");
@@ -95,6 +96,8 @@ static int gpio_poweroff_remove(struct platform_device *pdev)
 {
 	if (pm_power_off == &gpio_poweroff_do_poweroff)
 		pm_power_off = old_power_off;
+
+	gpiod_unexport(reset_gpio);
 
 	return 0;
 }
