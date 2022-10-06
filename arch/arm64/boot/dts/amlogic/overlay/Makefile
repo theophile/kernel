@@ -29,7 +29,8 @@ dtbo-$(CONFIG_ARCH_MESON) += \
 	meson-g12a-gpio-poweroff.dtbo \
 	meson-g12a-gpio-shutdown.dtbo \
 	meson-g12a-ads1015.dtbo \
-	meson-g12a-pwm-backlight.dtbo
+	meson-g12a-pwm-backlight.dtbo \
+	meson-g12a-ltc2941.dtbo
 
 scr-$(CONFIG_ARCH_MESON) += \
 	meson-fixup.scr

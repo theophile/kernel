@@ -1,0 +1,38 @@
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/gpio/meson-g12a-gpio.h>
+
+/ {
+compatible = "radxa,zero", "amlogic,g12a";
+
+        fragment@0 {
+                target = <&i2c3>;
+                __overlay__ {
+                        #address-cells = <1>;
+                        #size-cells = <0>;
+                        status = "okay";
+                        fuelgauge: fuelgauge@64 {
+                                compatible = "lltc,ltc2941";
+                                status = "okay";
+                                reg = <0x64>;
+                                lltc,resistor-sense = <25>;
+                                lltc,prescaler-exponent = <6>;
+                                power-supplies = <&usb_charger>;
+                        };
+                };
+        };
+
+        fragment@1 {
+                target-path = "/";
+                __overlay__ {
+                        usb_charger: charger {
+                                compatible = "gpio-charger";
+                                charger-type = "usb-sdp";
+                                charge-status-gpios = <&gpio GPIOH_7 (GPIO_ACTIVE_HIGH)>;
+                        };
+                };
+        };
+
+};
